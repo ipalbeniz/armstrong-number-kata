@@ -38,4 +38,9 @@ public class ArmstrongDetectorTest {
     public void three_hundred_and_seventy_should_be_an_armstrong_number() {
         assertTrue(ARMSTRONG_DETECTOR.isArmstrong(370));
     }
+
+    @Test
+    public void a_big_armstrong_number_should_be_detected() {
+        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(3289582984443187032L));
+    }
 }
