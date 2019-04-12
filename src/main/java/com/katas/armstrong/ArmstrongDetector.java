@@ -1,27 +1,23 @@
 package com.katas.armstrong;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
 public class ArmstrongDetector {
 
     public boolean isArmstrong(int number) {
-        List<Integer> digits = extractDigitsFrom(number);
-        int sumOfPowers = sumOfPowers(digits);
-        return number == sumOfPowers;
+        return number == sumOfPowers(digitsFrom(number));
     }
 
-    private List<Integer> extractDigitsFrom(int number) {
+    private int[] digitsFrom(int number) {
         return String.valueOf(number)
                 .chars()
                 .map(Character::getNumericValue)
-                .boxed()
-                .collect(Collectors.toList());
+                .toArray();
     }
 
-    private int sumOfPowers(List<Integer> digits) {
-        return digits.stream()
-                .mapToInt(digit -> (int) Math.pow(digit, digits.size()))
+    private int sumOfPowers(int[] digits) {
+        return Arrays.stream(digits)
+                .map(digit -> (int) Math.pow(digit, digits.length))
                 .sum();
     }
 }
