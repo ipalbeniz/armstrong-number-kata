@@ -1,25 +1,26 @@
 package com.katas.armstrong;
 
-import com.google.common.math.LongMath;
-
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class ArmstrongDetector {
 
-    public boolean isArmstrong(long number) {
-        return number == sumOfPowers(digitsFrom(number));
+    public boolean isArmstrong(BigInteger number) {
+        final int[] digits = getDigitsFrom(number);
+        return number.equals(sumOfPowers(digits));
     }
 
-    private long[] digitsFrom(long number) {
+    private int[] getDigitsFrom(BigInteger number) {
         return String.valueOf(number)
                 .chars()
-                .mapToLong(Character::getNumericValue)
+                .map(Character::getNumericValue)
                 .toArray();
     }
 
-    private long sumOfPowers(long[] digits) {
+    private BigInteger sumOfPowers(int[] digits) {
         return Arrays.stream(digits)
-                .map(digit -> LongMath.checkedPow(digit, digits.length))
-                .sum();
+                .mapToObj(BigInteger::valueOf)
+                .map(digit -> digit.pow(digits.length))
+                .reduce(BigInteger.ZERO, BigInteger::add);
     }
 }
