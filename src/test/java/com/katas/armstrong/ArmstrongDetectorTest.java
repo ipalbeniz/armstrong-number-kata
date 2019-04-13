@@ -1,46 +1,38 @@
 package com.katas.armstrong;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+@RunWith(JUnitParamsRunner.class)
 public class ArmstrongDetectorTest {
 
     private static final ArmstrongDetector ARMSTRONG_DETECTOR = new ArmstrongDetector();
 
     @Test
-    public void zero_should_be_an_armstrong_number() {
-        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(0));
+    @Parameters({
+            "0",
+            "1",
+            "9",
+            "153",
+            "370",
+            "3289582984443187032"
+    })
+    public void it_should_detect_the_armstrong_numbers(long number) {
+        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(number));
     }
 
     @Test
-    public void nine_should_be_an_armstrong_number() {
-        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(9));
-    }
-
-    @Test
-    public void ten_should_not_be_an_armstrong_number() {
-        assertFalse(ARMSTRONG_DETECTOR.isArmstrong(10));
-    }
-
-    @Test
-    public void one_hundred_and_fifty_three_should_be_an_armstrong_number() {
-        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(153));
-    }
-
-    @Test
-    public void one_hundred_and_fifty_four_should_not_be_an_armstrong_number() {
-        assertFalse(ARMSTRONG_DETECTOR.isArmstrong(154));
-    }
-
-    @Test
-    public void three_hundred_and_seventy_should_be_an_armstrong_number() {
-        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(370));
-    }
-
-    @Test
-    public void a_big_armstrong_number_should_be_detected() {
-        assertTrue(ARMSTRONG_DETECTOR.isArmstrong(3289582984443187032L));
+    @Parameters({
+            "10",
+            "154",
+            "3289582984443187031"
+    })
+    public void it_should_detect_the_false_armstrong_numbers(long number) {
+        assertFalse(ARMSTRONG_DETECTOR.isArmstrong(number));
     }
 }
